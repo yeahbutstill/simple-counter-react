@@ -14,20 +14,9 @@ f
 :
 
 .gitignore,a/5/a5cc2925ca8258af241be7e5b0381edf30266302
-;
-src/App.css,a/a/aa7165aefcf8ee3d73539e99ab007daf1aa18d8d
-=
-src/index.css,c/5/c5d38a62d1faae90a2acaa34b79a7ef365c917e4
 R
 "src/components/counter/Counter.jsx,e/4/e49d4b2e3b862856cb93ef9f914263ed7ff2f88f
 X
 (src/components/counter/CounterButton.jsx,5/9/599cbbb426657ccbb690dfee28a4faaa62cfc53e
 R
 "src/components/counter/Counter.css,5/b/5b5955b3025d8558e51769bec4177c5609f1dca1
-<
-package.json,7/0/7030d0b2f71b999ff89a343de08c414af32fc93a
-:
-
-src/App.js,1/e/1e43fa63aecd2127be034b3fb9d4caa172275714
-O
-src/components/todo/TodoApp.css,b/2/b2ce5d40a9c15119308935de5e4b6fab608dd602
