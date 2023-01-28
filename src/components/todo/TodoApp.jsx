@@ -1,5 +1,5 @@
 import './TodoApp.css'
-import {BrowserRouter, Route, Routes, useNavigate, useParams} from "react-router-dom";
+import {BrowserRouter, Link, Route, Routes, useNavigate, useParams} from "react-router-dom";
 import {useState} from "react";
 
 export default function TodoApp() {
@@ -75,7 +75,7 @@ function WelcomeComponent() {
         <div className="WelcomeComponent">
             <h1>Welcome {username}</h1>
             <div>
-                Welcome Component
+                Manage your todos - <Link href="/todos">Go here</Link>
             </div>
         </div>
     )
@@ -94,11 +94,13 @@ function ErrorComponent() {
 
 function ListTodosComponent() {
 
+    const today = new Date();
+    const targetDate = new Date(today.getFullYear()+12, today.getMonth(), today.getDay())
     const todos = [
-        {id: 1, description: 'Learn AWS', username: 'yeahbutstill'},
-        {id: 2, description: 'Learn Vault', username: 'yeahbutstill'},
-        {id: 3, description: 'Learn Keycloak', username: 'yeahbutstill'},
-        {id: 4, description: 'Learn Docker', username: 'yeahbutstill'}
+        {id: 1, description: 'Learn AWS', username: 'yeahbutstill', done: false, targetDate:targetDate},
+        {id: 2, description: 'Learn Vault', username: 'yeahbutstill', done: false, targetDate:targetDate},
+        {id: 3, description: 'Learn Keycloak', username: 'yeahbutstill', done: true, targetDate:targetDate},
+        {id: 4, description: 'Learn Docker', username: 'yeahbutstill', done: true, targetDate:targetDate}
     ]
 
     return (
@@ -111,6 +113,8 @@ function ListTodosComponent() {
                         <td>id</td>
                         <td>description</td>
                         <td>username</td>
+                        <td>is done?</td>
+                        <td>target</td>
                     </tr>
                     </thead>
                     <tbody>
@@ -121,6 +125,8 @@ function ListTodosComponent() {
                                     <td>{todo.id}</td>
                                     <td>{todo.description}</td>
                                     <td>{todo.username}</td>
+                                    <td>{todo.done.toString()}</td>
+                                    <td>{todo.targetDate.toDateString()}</td>
                                 </tr>
                             )
                         )
