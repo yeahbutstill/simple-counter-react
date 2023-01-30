@@ -7,6 +7,8 @@ import ErrorComponent from "./ErrorComponent";
 import WelcomeComponent from "./WelcomeComponent";
 import LoginComponent from "./LoginComponent";
 import AuthProvider, {useAuth} from "./security/AuthContext";
+import React from "react";
+import TodoComponent from "./TodoComponent";
 
 function AuthenticatedRoute({children}) {
     const authContext = useAuth()
@@ -34,6 +36,11 @@ export default function TodoApp() {
                         <Route path='/todos' element={
                             <AuthenticatedRoute>
                                 <ListTodosComponent/>
+                            </AuthenticatedRoute>
+                        }></Route>
+                        <Route path='/todo/:id' element={
+                            <AuthenticatedRoute>
+                                <TodoComponent/>
                             </AuthenticatedRoute>
                         }></Route>
                         <Route path='/logout' element={

@@ -1,28 +1,69 @@
-import {useParams} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {deletedTodoApi, retrieveAllTodosForUsernameApi} from "./api/TodoApiService";
+import {useAuth} from "./security/AuthContext";
+import {useNavigate} from "react-router-dom";
 
 export function ListTodosComponent(){
 
-    const {username} = useParams()
-    const today = new Date();
-    const targetDate = new Date(today.getFullYear()+12, today.getMonth(), today.getDay())
-    const todos = [
-        {id: 1, description: 'Learn AWS', username:username, done: false, targetDate:targetDate},
-        {id: 2, description: 'Learn Vault', username:username, done: false, targetDate:targetDate},
-        {id: 3, description: 'Learn Keycloak', username:username, done: true, targetDate:targetDate},
-        {id: 4, description: 'Learn Docker', username:username, done: true, targetDate:targetDate}
-    ]
+    const authContext = useAuth()
+    const username = authContext.username
+    const navigate = useNavigate()
+    const [message, setMessage] = useState();
+    const [todos, setTodos] = useState([])
+
+    function successfulResponse(response) {
+        setMessage(response.data.message)
+    }
+
+    function errorResponse(error) {
+        setMessage(error.data.message)
+    }
+
+    // useEffect - tell React that your component needs to do something after render
+    useEffect(
+        () => callTodoRestApi(), [callTodoRestApi]
+    )
+
+    function callTodoRestApi() {
+        console.log('called')
+
+        retrieveAllTodosForUsernameApi(username)
+            .then((response) => {
+                setTodos(response.data)
+                successfulResponse(response)
+            })
+            .catch((error) => errorResponse(error))
+            .finally(() => console.log('cleanup'))
+    }
+
+    function callDeletedTodoRestApi(id) {
+        deletedTodoApi(username, id)
+            .then(() => {
+                // Display message
+                setMessage(`Delete of todo with with ID: ${id} successfuly`)
+                // Update Todo List
+                callTodoRestApi()
+            })
+            .catch((error) => errorResponse(error))
+            .finally(() => console.log('cleanup'))
+    }
+
+    function callUpdateTodoRestApi(id) {
+        navigate(`/todo/${id}`)
+    }
 
     return (
         <div className="container">
             <h1>Things you want to do!</h1>
+            {message && <div className="alert alert-warning">{message}</div>}
             <div>
                 <table className="table">
                     <thead>
                     <tr>
-                        <td>id</td>
-                        <td>description</td>
-                        <td>is done?</td>
-                        <td>target</td>
+                        <th>Description</th>
+                        <th>Is Done?</th>
+                        <th>Target</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -33,7 +74,11 @@ export function ListTodosComponent(){
                                     <td>{todo.id}</td>
                                     <td>{todo.description}</td>
                                     <td>{todo.done.toString()}</td>
-                                    <td>{todo.targetDate.toDateString()}</td>
+                                    <td>{todo.targetDate.toString()}</td>
+                                    <td>
+                                        <button className="btn btn-danger" onClick={() => callDeletedTodoRestApi(todo.id)}>Delete</button>
+                                        <button className="btn btn-primary" onClick={() => callUpdateTodoRestApi(todo.id)}>Update</button>
+                                    </td>
                                 </tr>
                             )
                         )
