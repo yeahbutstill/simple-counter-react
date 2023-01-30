@@ -30,5 +30,3 @@ W
 'src/components/todo/LogoutComponent.jsx,8/c/8cacb6a6c6805d36bd3f9a94347e1b670be5e3b7
 V
 &src/components/todo/ErrorComponent.jsx,6/a/6a0df92ed2260ac8f4ef05803d53fa69229f0631
-X
-(src/components/todo/WelcomeComponent.jsx,b/d/bd0cdd7f8ba44fef17609682c29ada8585513169
