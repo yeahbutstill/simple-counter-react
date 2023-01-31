@@ -58,10 +58,10 @@ export function ListTodosComponent(){
 
     return (
         <div className="container">
-            <h1>Things you want to do!</h1>
+            <h1 className="m-5">Things you want to do!</h1>
             {message && <div className="alert alert-warning">{message}</div>}
             <div>
-                <table className="table">
+                <table className="table table-light table-striped table-hover table-sm">
                     <thead>
                     <tr>
                         <th>Description</th>
@@ -75,13 +75,12 @@ export function ListTodosComponent(){
                         todos.map(
                             todo => (
                                 <tr key={todo.id}>
-                                    <td>{todo.id}</td>
                                     <td>{todo.description}</td>
                                     <td>{todo.done.toString()}</td>
                                     <td>{todo.targetDate.toString()}</td>
                                     <td>
-                                        <button className="btn btn-danger" onClick={() => callDeletedTodoRestApi(todo.id)}>Delete</button>
-                                        <button className="btn btn-primary" onClick={() => callUpdateTodoRestApi(todo.id)}>Update</button>
+                                        <button className="btn btn-danger m-3" onClick={() => callDeletedTodoRestApi(todo.id)}>Delete</button>
+                                        <button className="btn btn-primary m-3" onClick={() => callUpdateTodoRestApi(todo.id)}>Update</button>
                                     </td>
                                 </tr>
                             )
