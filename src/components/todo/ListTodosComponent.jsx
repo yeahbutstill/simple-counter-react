@@ -52,6 +52,10 @@ export function ListTodosComponent(){
         navigate(`/todo/${id}`)
     }
 
+    function calladdNewTodoRestApi() {
+        navigate(`/todo/-1`)
+    }
+
     return (
         <div className="container">
             <h1>Things you want to do!</h1>
@@ -86,6 +90,7 @@ export function ListTodosComponent(){
                     </tbody>
                 </table>
             </div>
+            <div className="btn btn-success m-5" onClick={calladdNewTodoRestApi}>Add New Todo</div>
         </div>
     )
 }
